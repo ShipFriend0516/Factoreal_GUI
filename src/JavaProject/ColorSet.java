@@ -12,6 +12,9 @@ public class ColorSet {
     public static final String lightBeige = "#F5F5DC";
 
 
+    public static final String lightGray = "#D6E4E5";
+    public static final String darkTeal = "#497174";
+
 
 
 }
