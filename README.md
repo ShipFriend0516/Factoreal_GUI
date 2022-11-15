@@ -1,5 +1,4 @@
 # Factoreal_GUI
-초기버전
 
 로그인 프레임
 
@@ -16,4 +15,11 @@
 
 메인화면 프레임
 
-<img width="912" alt="image" src="https://user-images.githubusercontent.com/98446924/201835747-73312866-92bd-4557-b7b1-446fada3ffdf.png">
+<img width="912" alt="image" src="https://user-images.githubusercontent.com/98446924/201855678-04158ccf-12ed-48ff-a18b-ca762c772fbb.png">
+
+---
+
+공장 이름 변경하기 프레임
+
+<img width="501" alt="image" src="https://user-images.githubusercontent.com/98446924/201855772-a4e1f270-a462-41d3-9054-168e08d7b59c.png">
+
