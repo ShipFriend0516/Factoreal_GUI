@@ -27,7 +27,7 @@ public class PermissionReqestCheckFrame extends JFrame {
         title.setOpaque(true);
         title.setBackground(Color.decode(ColorSet.lightGreen));
         title.setBorder(BorderFactory.createEmptyBorder(10,0,10,0));
-        getContentPane().add(title,BorderLayout.NORTH);
+        this.add(title,BorderLayout.NORTH);
 
 
         List<userItem> requestUsers = GetMyrelation.holder.getRequestContextUsers();
@@ -35,12 +35,12 @@ public class PermissionReqestCheckFrame extends JFrame {
 
 
 
-
+        JScrollPane scrollPane;
         requestPanel = new JPanel(new GridLayout(requestUsers.size()+removeUsers.size()+5,1));
         requestPanel.add(requestTable);
         scrollPane= new JScrollPane(requestPanel);
-        JScrollPane scrollPane = new JScrollPane(requestPanel);
-        getContentPane().add(scrollPane,BorderLayout.CENTER);
+
+        this.add(scrollPane,BorderLayout.CENTER);
 
 
 
