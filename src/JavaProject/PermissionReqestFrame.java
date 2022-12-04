@@ -1,5 +1,7 @@
 package JavaProject;
 
+import JavaProject.network.GetMyrelation;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -16,6 +18,13 @@ public class PermissionReqestFrame extends JFrame {
         title.setBorder(BorderFactory.createEmptyBorder(10,0,10,0));
 
         this.add(title,BorderLayout.NORTH);
+
+        GetMyrelation.holder.getMoveContextUsers();
+        GetMyrelation.holder.getCancelContextUsers();
+
+
+
+
 
 
         //Frame Setting

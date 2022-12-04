@@ -10,12 +10,14 @@ import java.util.List;
 import java.util.concurrent.*;
 
 public class GetMyrelation extends Thread {
+    public static GetMyrelation holder;
     private ArrayList<userItem> moveContextUsers;
     private ArrayList<userItem> cancelContextUsers;
     private ArrayList<userItem> removeContextUsers;
     private ArrayList<userItem> requestContextUsers;
     String userId;
-    GetMyrelation(String userId){
+    public GetMyrelation(String userId){
+        this.holder=this;
         this.userId=userId;
     }
     @Override
