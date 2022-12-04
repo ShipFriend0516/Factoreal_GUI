@@ -14,6 +14,8 @@ import java.awt.event.FocusEvent;
 public class AlarmFrame extends JFrame {
     JPanel panel;
     JPanel buttonBarPanel;
+    JLabel minLabel;
+    JLabel maxLabel;
     JTextField minText;
     JTextField maxText;
     JButton confirm;
@@ -24,11 +26,16 @@ public class AlarmFrame extends JFrame {
     }
     AlarmFrame(long sensorIndex,AlarmDTO alarmDTO){
         panel=new JPanel(new BorderLayout());
-        JPanel inputPanel = new JPanel(new GridLayout(2, 1, 10, 10));
+        JPanel inputPanel = new JPanel(new GridLayout(2, 2, 10, 10));
         buttonBarPanel=new JPanel(new GridLayout(1,2,10,10));
 
-        minText=new JTextField("최소값");
-        maxText=new JTextField("최대값");
+        minLabel=new JLabel("최소값");
+        minText=new JTextField();
+
+        maxLabel=new JLabel("최소값");
+        maxText=new JTextField();
+        minLabel.setPreferredSize(new Dimension(100,30));
+        maxLabel.setPreferredSize(new Dimension(100,30));
         minText.setPreferredSize(new Dimension(100,30));
         maxText.setPreferredSize(new Dimension(100,30));
 
@@ -36,8 +43,11 @@ public class AlarmFrame extends JFrame {
         cancel=new JButton();
         confirm.setPreferredSize(new Dimension(100,30));
         cancel.setPreferredSize(new Dimension(100,30));
+        inputPanel.add(minLabel);
         inputPanel.add(minText);
+        inputPanel.add(maxLabel);
         inputPanel.add(maxText);
+
         buttonBarPanel.add(confirm);
         buttonBarPanel.add(cancel);
         getContentPane().setLayout(new BorderLayout());
