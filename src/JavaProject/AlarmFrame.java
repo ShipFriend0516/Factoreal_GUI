@@ -10,53 +10,39 @@ import java.awt.event.ActionListener;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 
-class HintTextField extends JTextField {
-    Font gainFont = new Font("Tahoma", Font.PLAIN, 11);
-    Font lostFont = new Font("Tahoma", Font.ITALIC, 11);
-    public HintTextField(final String hint) {
-        setText(hint);
-        setFont(lostFont);
-        setForeground(Color.GRAY);
-        this.addFocusListener(new FocusAdapter() {
-            @Override
-            public void focusGained(FocusEvent e) {
-                if (getText().equals(hint)) {
-                    setText("");
-                    setFont(gainFont);
-                } else {
-                    setText(getText());
-                    setFont(gainFont);
-                }
-            }
-            @Override
-            public void focusLost(FocusEvent e) {
-                if (getText().equals(hint)|| getText().length()==0) {
-                    setText(hint);
-                    setFont(lostFont);
-                    setForeground(Color.GRAY);
-                } else {
-                    setText(getText());
-                    setFont(gainFont);
-                    setForeground(Color.BLACK);
-                }
-            }
-        });
-    }
-}
+
 public class AlarmFrame extends JFrame {
     JPanel panel;
     JPanel buttonBarPanel;
-    HintTextField minText;
-    HintTextField maxText;
+    JTextField minText;
+    JTextField maxText;
     JButton confirm;
     JButton cancel;
+
+    public static void main(String[] args) {
+        new AlarmFrame(2,null);
+    }
     AlarmFrame(long sensorIndex,AlarmDTO alarmDTO){
         panel=new JPanel(new BorderLayout());
-        buttonBarPanel=new JPanel(new GridLayout(2,1,10,10));
-        minText=new HintTextField("최소값");
-        maxText=new HintTextField("최대값");
+        JPanel inputPanel = new JPanel(new GridLayout(2, 1, 10, 10));
+        buttonBarPanel=new JPanel(new GridLayout(1,2,10,10));
+
+        minText=new JTextField("최소값");
+        maxText=new JTextField("최대값");
+        minText.setPreferredSize(new Dimension(100,30));
+        maxText.setPreferredSize(new Dimension(100,30));
+
         confirm=new JButton();
         cancel=new JButton();
+        confirm.setPreferredSize(new Dimension(100,30));
+        cancel.setPreferredSize(new Dimension(100,30));
+        inputPanel.add(minText);
+        inputPanel.add(maxText);
+        buttonBarPanel.add(confirm);
+        buttonBarPanel.add(cancel);
+        getContentPane().setLayout(new BorderLayout());
+        getContentPane().add(inputPanel,BorderLayout.CENTER);
+        getContentPane().add(buttonBarPanel,BorderLayout.SOUTH);
 
         if (alarmDTO!=null){
             minText.setText(alarmDTO.getMinimum()+"");
@@ -81,7 +67,10 @@ public class AlarmFrame extends JFrame {
             }
         });
 
-
+        setLocationRelativeTo(this);
+        setSize(300,300);
+        setVisible(true);
+        setTitle("알람 설정");
     }
 
 }
