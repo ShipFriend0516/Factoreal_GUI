@@ -27,6 +27,7 @@ class MainFrame extends JFrame implements ActionListener {
     //<<<<<좌측 스크롤 패넗<<<<<<
 
     //>>>>>공장 화면 패널>>>>>>>
+    GuiUpdater guiUpdater;//<-3000ms 마다 네트워크에 userid필드값으로 새 센서값 요청
     JPanel factoryMainPanel;
     JLabel factoryTitle;//스크롤을 포함함
     JScrollPane sensorValueScroll;
@@ -42,7 +43,10 @@ class MainFrame extends JFrame implements ActionListener {
 
     String userId;
      synchronized void setUserID(String id){
+         guiUpdater.cancel(false);
+         while (!guiUpdater.isCancelled());
          this.userId=id;
+
      }
     public static String loginId;
 
@@ -58,7 +62,7 @@ class MainFrame extends JFrame implements ActionListener {
                 while (true) {
                     updateData();
                     try {
-                        Thread.sleep(3000);
+                        Thread.sleep(300);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
@@ -66,20 +70,26 @@ class MainFrame extends JFrame implements ActionListener {
             }
         }
         private void updateData() {
+            getContentPane().revalidate();
+            getContentPane().repaint();
+            System.out.println("update 시작");
+            long st=System.currentTimeMillis();
             SensorValue[] sensorValueList = Callretrofit.get_sensor_value_resent_one(userId);
-            System.out.println("센서값 직접 받아옴");
-            for (SensorValue s : sensorValueList) {
-                System.out.println(s.getName()+" "+s.getValue());
-            }
-            System.out.println("센서값 직접 받아온상태\n");
+            long ed=System.currentTimeMillis();
+            System.out.println("네트워크만 "+(ed-st));
+            long start = System.currentTimeMillis();
 
+            getContentPane().revalidate();
+            getContentPane().repaint();
             Sensor[] sensor = Callretrofit.get_all_sensor(userId);
             List<AlarmDTO> alarmDTOList = Callretrofit.get_alarm(userId);//데이터 가져옴
 
             sensorValuePanel.removeAll();
             sensorValuePanel.setLayout(new GridLayout(sensorValueList.length + 5, 1, 5, 5));
+            //sensorValuePanel=new JPanel(new GridLayout(sensorValueList.length + 5, 1, 5, 5));
             valuePanels = new ArrayList<>();//센서 데이터가 담긴 각각의 패널
-
+            getContentPane().revalidate();
+            getContentPane().repaint();
             int offset = 0;
             for (int i = 0; i < sensor.length; i++) {
                 AlarmDTO alarmDTO = null;
@@ -100,13 +110,18 @@ class MainFrame extends JFrame implements ActionListener {
                 System.out.println("패널에 담긴 값: "+v.sensorName.getText()+" " +v.value.getText());
                 sensorValuePanel.add(v);
             }
-
+           //sensorValueScroll=new JScrollPane(sensorValuePanel);
             sensorValueScroll.removeAll();
             sensorValueScroll.add(sensorValuePanel);
             sensorValueScroll.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
             sensorValueScroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
             factoryMainPanel.add(sensorValueScroll, BorderLayout.CENTER);
             getContentPane().add(factoryMainPanel,BorderLayout.CENTER);
+            long end = System.currentTimeMillis();
+            System.out.println("한주기 "+(end-start));
+            System.out.println("update 종료");
+            getContentPane().revalidate();
+            getContentPane().repaint();
         }
 
     public MainFrame(String loginId) {
@@ -167,7 +182,7 @@ class MainFrame extends JFrame implements ActionListener {
         sensorValuePanel=new JPanel();
         sensorValueScroll = new JScrollPane(sensorValuePanel);
         factoryMainPanel.add(sensorValueScroll,BorderLayout.CENTER);
-        GuiUpdater guiUpdater = new GuiUpdater(factoryMainPanel);
+        guiUpdater = new GuiUpdater(factoryMainPanel);
         guiUpdater.execute();
 
 
@@ -190,8 +205,10 @@ class MainFrame extends JFrame implements ActionListener {
         factoryBtns[0].addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+
                 holder.setUserID(loginId);
                 factoryTitle.setText(userId + " 상태");
+
             }
         });
         factoryBtns[1].addActionListener(new ActionListener() {
