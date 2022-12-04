@@ -3,7 +3,6 @@ package JavaProject;
 
 import JavaProject.network.Callretrofit;
 import JavaProject.network.DTO.SensorValue;
-import JavaProject.network.LoginStatus;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -13,7 +12,6 @@ import java.awt.event.ActionListener;
 
 class MainFrame extends JFrame implements ActionListener {
     Container c;
-
     //>>>>>좌측 스크롤 패넗>>>>>>
     JPanel p1;
     JScrollPane leftSideScroll;
@@ -48,6 +46,22 @@ class MainFrame extends JFrame implements ActionListener {
                 //Thread.sleep(2000);
             }
         }
+        private DefaultTableModel calculateModel() {
+            DefaultTableModel model = new DefaultTableModel(new Object[]{"Sensor Name", "Value"}, 0);
+            //컬럼 명: Sensor name 컬럼, Value 컬럼
+
+            SensorValue[] sensorValueList = Callretrofit.get_sensor_value_resent_one(userId);
+            Callretrofit.get_alarm(userId);
+
+            if (sensorValueList != null) {
+                for (final SensorValue value : sensorValueList) {
+                    if (value != null) {
+                        model.addRow(new String[]{value.getName() + ": ", value.getValue()});
+                    }
+                }
+            }
+            return model;
+        }
     }
 
     public MainFrame(String userId) {
@@ -71,7 +85,7 @@ class MainFrame extends JFrame implements ActionListener {
         factoryMainPanel.setBackground(Color.decode("#B2FFFF"));
 
         //메인화면 공장이름 레이블 설정
-        factoryTitle = new JLabel("열람하고자 하는 공장을 선택해주세요.");
+        factoryTitle = new JLabel(userId+"상태");
         factoryTitle.setHorizontalAlignment(0);
         factoryTitle.setFont(new Font("KOTRA_BOLD", 0, 24));
         factoryTitle.setBorder(BorderFactory.createEmptyBorder(10, 0, 10, 0));
@@ -187,22 +201,7 @@ class MainFrame extends JFrame implements ActionListener {
         setVisible(true);
     }
 
-    private DefaultTableModel calculateModel() {
-        DefaultTableModel model = new DefaultTableModel(new Object[]{"Sensor Name", "Value"}, 0);
-        //컬럼 명: Sensor name 컬럼, Value 컬럼
 
-        SensorValue[] sensorValueList = Callretrofit.get_sensor_value_resent_one(userId);
-        Callretrofit.get_alarm(userId);
-
-        if (sensorValueList != null) {
-            for (final SensorValue value : sensorValueList) {
-                if (value != null) {
-                    model.addRow(new String[]{value.getName() + ": ", value.getValue()});
-                }
-            }
-        }
-        return model;
-    }
 }
 public class Main {
     public static void main(String[] args) {
