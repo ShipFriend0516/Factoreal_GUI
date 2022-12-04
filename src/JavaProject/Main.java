@@ -201,19 +201,33 @@ class LoginFrame extends JFrame {
     }
 } // 로그인 화면
 class MainFrame extends JFrame implements ActionListener {
+    Container c;
 
-    JPanel p1, p2, p3;
+    //>>>>>좌측 스크롤 패넗>>>>>>
+    JPanel p1;
+    JScrollPane leftSideScroll;
+    JButton[] leftSideButtons;
+    //<<<<<좌측 스크롤 패넗<<<<<<
+
+    //>>>>>공장 화면 패널>>>>>>>
+    JPanel factoryMainPanel;
     JLabel factoryTitle;
     JTable sensorValueTable = new JTable();
 
+        //>>>>>>>.하단 바 패널>>>>>>>>>
+        JPanel factoryBtnPanel;
+        JButton[] factoryBtns;
+        //<<<<<<<.하단 바 패널<<<<<<<<<<
+
+    //<<<<< 공장 화면 패널<<<<<<
+
     int presentFactoryIndex = -1;
     String userId;
-
     class GuiUpdater extends SwingWorker<Void, Void> {
         public GuiUpdater(MainFrame mainFrame) {
             JScrollPane scrollPane = new JScrollPane(sensorValueTable);
             sensorValueTable.setFillsViewportHeight(true);
-            mainFrame.add(scrollPane);
+            mainFrame.factoryMainPanel.add(scrollPane,BorderLayout.CENTER);
         }
 
         @Override
@@ -227,17 +241,17 @@ class MainFrame extends JFrame implements ActionListener {
 
     public MainFrame(String userId) {
         this.userId = userId;
-        Container c = getContentPane();
+        c = getContentPane();
 
 
         c.setLayout(new BorderLayout());
-        JPanel p1 = new JPanel(new GridLayout(10, 1, 0, 5));
-        JPanel factoryMainPanel = new JPanel(new BorderLayout());
+        p1 = new JPanel(new GridLayout(10, 1, 0, 5));
+        factoryMainPanel = new JPanel(new BorderLayout());
 
-        JScrollPane leftSideScroll = new JScrollPane(p1);
+        leftSideScroll = new JScrollPane(p1);
         leftSideScroll.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         leftSideScroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
-        JButton[] leftSideButtons = new JButton[10];
+        leftSideButtons = new JButton[10];
 
         c.add(leftSideScroll, BorderLayout.WEST);
 
@@ -257,11 +271,11 @@ class MainFrame extends JFrame implements ActionListener {
 
 
         //각 공장에 대한 설정을 위한 버튼 패널
-        JPanel factoryBtnPanel = new JPanel(new FlowLayout());
+        factoryBtnPanel = new JPanel(new FlowLayout());
         factoryMainPanel.add(factoryBtnPanel, BorderLayout.SOUTH);
         factoryBtnPanel.setBackground(Color.decode(ColorSet.darkTeal));
 
-        JButton[] factoryBtns = new JButton[5];
+        factoryBtns = new JButton[5];
         String[] btnsName = {"이름 변경", "그래프로 보기", "열람 요청", "열람 요청 확인", "로그아웃"};
         for (int i = 0; i < factoryBtns.length; i++) {
             factoryBtns[i] = new JButton(btnsName[i]);
@@ -328,7 +342,7 @@ class MainFrame extends JFrame implements ActionListener {
         //Left Side Buttons Setting 공장리스트 사이드바
         //Todo 팔로워십 팔로우 트루인 애들 리스트업->추가
         for (int i = 0; i < leftSideButtons.length; i++) {
-            leftSideButtons[i] = new JButton("Factory " + (i + 1));
+            leftSideButtons[i] = new JButton("pi" + (i + 1));
             leftSideButtons[i].setPreferredSize(new Dimension(200, 50));
             leftSideButtons[i].setBorder(BorderFactory.createLineBorder(Color.BLACK));
             leftSideButtons[i].setFocusable(true);
@@ -356,8 +370,7 @@ class MainFrame extends JFrame implements ActionListener {
         presentFactoryIndex = e.getModifiers();
         factoryTitle.setText(e.getActionCommand() + " 상태"); // 공장이름
 
-        //a = 공장 번호
-        int a = Integer.parseInt(e.getActionCommand().split(" ")[1]);
+
 
 
         setVisible(true);
