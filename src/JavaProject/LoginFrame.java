@@ -159,6 +159,8 @@ public class LoginFrame extends JFrame {
             //BtPanel Setting
             JButton regi_quitBt = new JButton("취소");
             JButton regi_createBt = new JButton("생성");
+            regi_quitBt.setPreferredSize(new Dimension(120,30));
+            regi_createBt.setPreferredSize(new Dimension(120,30));
 
             regi_quitBt.setBorder(BorderFactory.createLineBorder(Color.black));
             regi_createBt.setBorder(BorderFactory.createLineBorder(Color.black));
