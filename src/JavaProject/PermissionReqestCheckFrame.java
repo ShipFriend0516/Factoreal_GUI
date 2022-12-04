@@ -1,14 +1,7 @@
 package JavaProject;
 
-import JavaProject.network.DTO.SensorValue;
-import JavaProject.network.GetMyrelation;
-import JavaProject.network.VO.userItem;
-
 import javax.swing.*;
-import javax.swing.table.DefaultTableCellRenderer;
-import javax.swing.table.DefaultTableModel;
 import java.awt.*;
-import java.util.List;
 
 public class PermissionReqestCheckFrame extends JFrame {
     JTable requestTable;
@@ -29,18 +22,30 @@ public class PermissionReqestCheckFrame extends JFrame {
         title.setBorder(BorderFactory.createEmptyBorder(10,0,10,0));
         this.add(title,BorderLayout.NORTH);
 
+//
+//        List<userItem> requestUsers = GetMyrelation.holder.getRequestContextUsers();
+//        List<userItem> removeUsers = GetMyrelation.holder.getRemoveContextUsers();
 
-        List<userItem> requestUsers = GetMyrelation.holder.getRequestContextUsers();
-        List<userItem> removeUsers = GetMyrelation.holder.getRemoveContextUsers();
 
 
+        JPanel reqestListPanel = new JPanel(new FlowLayout());
 
-        JScrollPane scrollPane;
-        requestPanel = new JPanel(new GridLayout(requestUsers.size()+removeUsers.size()+5,1));
-        requestPanel.add(requestTable);
-        scrollPane= new JScrollPane(requestPanel);
+        JScrollPane reqestListScroll = new JScrollPane(reqestListPanel); //
+        reqestListScroll.setPreferredSize(new Dimension(300, 300));
 
-        this.add(scrollPane,BorderLayout.CENTER);
+        reqestListScroll.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        reqestListScroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+
+
+        reqestListPanel.setSize(300, 1000);
+
+
+        reqestListPanel.add(new PermissionRequestCheckPanel("유저1"));
+        reqestListPanel.add(new PermissionRequestCheckPanel("dd"));
+
+        this.add(reqestListScroll,BorderLayout.CENTER);
+        this.revalidate();
+        this.repaint();
 
 
 
@@ -50,5 +55,9 @@ public class PermissionReqestCheckFrame extends JFrame {
         setSize(300,300);
         setVisible(true);
         setTitle("열람 요청");
+    }
+
+    public static void main(String[] args) {
+        new PermissionReqestCheckFrame();
     }
 }

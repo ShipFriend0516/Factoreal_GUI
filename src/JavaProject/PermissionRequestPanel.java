@@ -8,7 +8,7 @@ public class PermissionRequestPanel extends JPanel {
     PermissionRequestPanel(String name) {
 
         //INFO//
-        //이 패널은 요청이 들어오면 생기는 패널입니다.
+        //이 패널은 요청을 하기 위한 패널입니다.
 
         this.name = name;
         this.setLayout(new BorderLayout(5,0));
@@ -22,21 +22,13 @@ public class PermissionRequestPanel extends JPanel {
         this.add(requestName,BorderLayout.CENTER);
         requestName.repaint();
 
-        JPanel btnPanel = new JPanel(new GridLayout(1,2,5,0));
-        JButton accept = new JButton("수락");
-        JButton deny = new JButton("거절");
-        accept.setPreferredSize(new Dimension(40,30));
-        deny.setPreferredSize(new Dimension(60,30));
-        accept.setBorder(BorderFactory.createLineBorder(Color.black));
-        deny.setBorder(BorderFactory.createLineBorder(Color.black));
-        btnPanel.add(accept);
-        btnPanel.add(deny);
-        this.add(btnPanel,BorderLayout.EAST);
+        JButton follow = new JButton("팔로우");
+        follow.setPreferredSize(new Dimension(60,30));
+        follow.setBorder(BorderFactory.createLineBorder(Color.black));
+        this.add(follow,BorderLayout.EAST);
 
-        accept.repaint();
-        accept.revalidate();
-        deny.repaint();
-        deny.revalidate();
+        follow.repaint();
+        follow.revalidate();
 
 
         this.setPreferredSize(new Dimension(300,40));
