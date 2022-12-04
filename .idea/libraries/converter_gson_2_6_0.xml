@@ -1,0 +1,15 @@
+<component name="libraryTable">
+  <library name="converter-gson-2.6.0">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/Downloads/스윙 외부라이브러리 추가/converter-gson-2.6.0.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/스윙 외부라이브러리 추가/converter-scalars-2.5.0.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/스윙 외부라이브러리 추가/gson-2.8.5.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/스윙 외부라이브러리 추가/javawriter-2.1.1.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/스윙 외부라이브러리 추가/okhttp-3.12.0.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/스윙 외부라이브러리 추가/okio-1.15.0.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/스윙 외부라이브러리 추가/retrofit-2.6.2.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
