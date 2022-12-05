@@ -180,8 +180,8 @@ class MainFrame extends JFrame implements ActionListener {
         factoryMainPanel.add(factoryBtnPanel, BorderLayout.SOUTH);
         factoryBtnPanel.setBackground(Color.decode(ColorSet.darkTeal));
 
-        factoryBtns = new JButton[5];
-        String[] btnsName = {"내 공장", "그래프로 보기", "열람 요청", "열람 요청 확인", "로그아웃"};
+        factoryBtns = new JButton[4];
+        String[] btnsName = {"내 공장", "열람 요청", "열람 요청 확인", "로그아웃"};
         for (int i = 0; i < factoryBtns.length; i++) {
             factoryBtns[i] = new JButton(btnsName[i]);
             factoryBtnPanel.add(factoryBtns[i]);
@@ -203,23 +203,17 @@ class MainFrame extends JFrame implements ActionListener {
         factoryBtns[1].addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
-            }
-        });
-        factoryBtns[2].addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
                 new PermissionReqestFrame();
             }
         });
 
-        factoryBtns[3].addActionListener(new ActionListener() {
+        factoryBtns[2].addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 new PermissionReqestCheckFrame();
             }
         });
-        factoryBtns[4].addActionListener(new ActionListener() {
+        factoryBtns[3].addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 dispose();
