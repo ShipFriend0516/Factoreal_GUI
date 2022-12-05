@@ -11,15 +11,96 @@ import java.awt.event.ActionListener;
 
 public class UserItemPanel extends JPanel {
     private userItem userItem;
-    UserItemPanel(userItem userItem) {
+    JLabel requestName;
+    JPanel btnPanel;
+    JButton accept;
+    JButton deny;
+    JButton delete;
+    JButton move;
+    JButton requested;
+    JButton follow;
 
+    UserItemPanel(userItem userItem) {
+        UserItemPanel holder=this;
         //INFO//
         //이 패널은 요청이 들어오면 생기는 패널입니다.
 
         this.userItem = userItem;
+
+        accept = new JButton("수락");
+        deny = new JButton("거절");
+        delete = new JButton("삭제");
+        move = new JButton("이동");
+        requested = new JButton("취소");
+        follow = new JButton("팔로우");
+
+        accept.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Component c= holder.getRootPane();
+                btnPanel.removeAll();
+                btnPanel.setLayout(new GridLayout(1,1,5,0));
+                btnPanel.add(delete);
+                Callretrofit.patch_follower(userItem.getFollowershipIndex(),true);
+                c.revalidate();
+                c.repaint();
+            }
+        });
+        deny.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Component c= holder.getRootPane();
+                holder.getParent().remove(holder);
+
+                Callretrofit.delete_follower(userItem.getFollowershipIndex());
+                c.revalidate();
+                c.repaint();
+            }
+        });
+        delete.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Component c= holder.getRootPane();
+                holder.getParent().remove(holder);
+                Callretrofit.delete_follower(userItem.getFollowershipIndex());
+                c.revalidate();
+                c.repaint();
+            }
+        });
+        move.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                MainFrame.userId= MainFrame.loginId;
+                userItem.getUserName();//이 값을 전달
+            }
+        });
+        requested.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Component c= holder.getRootPane();
+                Callretrofit.delete_follower(userItem.getFollowershipIndex());
+                btnPanel.removeAll();
+                btnPanel.add(follow);
+                c.revalidate();
+                c.repaint();
+            }
+        });
+        follow.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Component c= holder.getRootPane();
+                Callretrofit.post_follower(new FollowshipVO(MainFrame.loginId, userItem.getUserName()));
+                btnPanel.removeAll();
+                btnPanel.add(requested);
+                c.revalidate();
+                c.repaint();
+            }
+        });
+
+
         this.setLayout(new BorderLayout(5,0));
 
-        JLabel requestName = new JLabel(userItem.getUserName());
+        requestName = new JLabel(userItem.getUserName());
         requestName.setHorizontalAlignment(0);
         requestName.setOpaque(true);
         requestName.setForeground(Color.BLACK);
@@ -27,15 +108,15 @@ public class UserItemPanel extends JPanel {
         requestName.setBorder(BorderFactory.createLineBorder(Color.black));
         this.add(requestName,BorderLayout.CENTER);
         requestName.repaint();
-        JPanel btnPanel = null;
+        btnPanel = null;
         if (userItem.getContext().equals(Context.request)) {
             btnPanel= new JPanel(new GridLayout(1, 2, 5, 0));
-            JButton accept = new JButton("수락");
-            JButton deny = new JButton("거절");
+
             accept.setPreferredSize(new Dimension(40, 30));
             deny.setPreferredSize(new Dimension(60, 30));
             accept.setBorder(BorderFactory.createLineBorder(Color.black));
             deny.setBorder(BorderFactory.createLineBorder(Color.black));
+
             btnPanel.add(accept);
             btnPanel.add(deny);
             accept.revalidate();
@@ -45,63 +126,35 @@ public class UserItemPanel extends JPanel {
         }
         else if (userItem.getContext().equals(Context.delete)){
             btnPanel = new JPanel(new GridLayout(1,1,5,0));
-            JButton delete = new JButton(userItem.getContext());
+
             delete.setPreferredSize(new Dimension(60, 30));
             delete.setBorder(BorderFactory.createLineBorder(Color.black));
             btnPanel.add(delete);
             delete.revalidate();
             delete.repaint();
-            delete.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    Callretrofit.delete_follower(userItem.getFollowershipIndex());
-                }
-            });
         }
         else if (userItem.getContext().equals(Context.move)){
             btnPanel = new JPanel(new GridLayout(1,1,5,0));
-            JButton move = new JButton(userItem.getContext());
             move.setPreferredSize(new Dimension(60, 30));
             move.setBorder(BorderFactory.createLineBorder(Color.black));
             btnPanel.add(move);
-            move.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    //todo 이 창을 닫고 메인 프레임의 userid를 내 팔로워 인덱스의 이름으로 변경
-                    userItem.getUserName();//이 값을 전달
-                }
-            });
 
         }
         else if (userItem.getContext().equals(Context.requested)){
             btnPanel = new JPanel(new GridLayout(1,1,5,0));
-            JButton requested = new JButton(userItem.getContext());
             requested.setPreferredSize(new Dimension(60, 30));
             requested.setBorder(BorderFactory.createLineBorder(Color.black));
             btnPanel.add(requested);
             requested.revalidate();
             requested.repaint();
-            requested.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    Callretrofit.delete_follower(userItem.getFollowershipIndex());
-                }
-            });
         }
         else {
             btnPanel = new JPanel(new GridLayout(1,1,5,0));
-            JButton follow = new JButton(userItem.getContext());
             follow.setPreferredSize(new Dimension(60, 30));
             follow.setBorder(BorderFactory.createLineBorder(Color.black));
             btnPanel.add(follow);
             follow.revalidate();
             follow.repaint();
-            follow.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    Callretrofit.post_follower(new FollowshipVO(MainFrame.loginId, userItem.getUserName()));
-                }
-            });
         }
         this.add(btnPanel,BorderLayout.EAST);
 
