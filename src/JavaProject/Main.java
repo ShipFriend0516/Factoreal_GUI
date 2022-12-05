@@ -41,7 +41,7 @@ class MainFrame extends JFrame implements ActionListener {
 
     //<<<<< 공장 화면 패널<<<<<<
 
-    String userId;
+    static String userId;
      synchronized void setUserID(String id){
           this.userId=id;
 

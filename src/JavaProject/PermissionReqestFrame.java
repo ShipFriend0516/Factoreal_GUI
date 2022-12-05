@@ -163,10 +163,12 @@ public class PermissionReqestFrame extends JFrame {
             for (userItem u:foundlist_found_just) {
                 list.add(new UserItemPanel(u));
             }
+            searchResult.removeAll();
+            searchResult.setLayout(new GridLayout(list.size(),1,5,5));
             for (int i = 0; i <list.size(); i++) {
                 searchResult.add(list.get(i));
             }
-                searchResult.revalidate();
+            searchResult.revalidate();
             searchResult.repaint();
         }
     }
