@@ -46,14 +46,12 @@ public class LoginFrame extends JFrame {
 
 
         //Enter or Quit Button Panel Setting
-        JPanel botBtPanel = new JPanel(new GridLayout(1,3,5,0));
+        JPanel botBtPanel = new JPanel(new GridLayout(1,2,5,0));
 
         JButton quitBt = new JButton("종료");
-        JButton regiBt = new JButton("회원가입");
-        JButton enterBt = new JButton("확인");
+        JButton enterBt = new JButton("로그인");
 
         quitBt.setPreferredSize(new Dimension(100,30));
-        regiBt.setPreferredSize(new Dimension(100,30));
         enterBt.setPreferredSize(new Dimension(100,30));
 
         //종료버튼
@@ -66,16 +64,6 @@ public class LoginFrame extends JFrame {
             }
         });
 
-        // 회원가입 버튼 설정
-        botBtPanel.add(regiBt);
-        regiBt.setBorder(BorderFactory.createLineBorder(Color.black));
-        regiBt.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                // 버튼 이벤트
-                new RegisterFrame();
-            }
-        });
 
         //확인버튼 설정
         botBtPanel.add(enterBt);
