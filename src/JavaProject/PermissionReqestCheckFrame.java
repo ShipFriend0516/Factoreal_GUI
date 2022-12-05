@@ -12,12 +12,16 @@ public class PermissionReqestCheckFrame extends JFrame {
     JTable requestTable;
     JPanel requestPanel;
     JScrollPane scrollPane;
+    JLabel title;
+    JPanel requestListPanel;
+    JScrollPane requestListScroll;
+
     Vector<UserItemPanel> list = new Vector<>();
 
     PermissionReqestCheckFrame() {
         this.setLayout(new BorderLayout());
 
-        JLabel title = new JLabel("열람 요청 확인");
+        title = new JLabel("열람 요청 확인");
         title.setFont(new Font("KOTRA_BOLD", 0, 16));
         title.setHorizontalAlignment(0);
         title.setOpaque(true);
@@ -29,16 +33,14 @@ public class PermissionReqestCheckFrame extends JFrame {
         getMyrelation.start();
 
 
-        JPanel requestListPanel = new JPanel(new FlowLayout()); // 리스트가 나오는 패널
+        requestListPanel = new JPanel(new FlowLayout()); // 리스트가 나오는 패널
         requestListPanel.setPreferredSize(new Dimension(300,300));
-        JScrollPane requestListScroll = new JScrollPane(requestListPanel); //
+        requestListScroll = new JScrollPane(requestListPanel); //
         requestListScroll.setPreferredSize(new Dimension(300, 200));
 
-        JScrollPane reqestListScroll = new JScrollPane(requestListPanel); //
-        reqestListScroll.setPreferredSize(new Dimension(300, 300));
 
-        reqestListScroll.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-        reqestListScroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+        requestListScroll.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        requestListScroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 
 
         requestListPanel.setSize(300, 1000);
@@ -52,9 +54,9 @@ public class PermissionReqestCheckFrame extends JFrame {
             System.out.println(removeList.get(i).getUserName()+": "+removeList.get(i).getFollowershipIndex()+" "+removeList.get(i).getContext() );
             requestListPanel.add(new UserItemPanel(removeList.get(i)));
         }
-
         this.add(requestListScroll,BorderLayout.CENTER);
-
+        this.revalidate();
+        this.repaint();
 
 
 

@@ -43,9 +43,7 @@ class MainFrame extends JFrame implements ActionListener {
 
     String userId;
      synchronized void setUserID(String id){
-         guiUpdater.cancel(false);
-         while (!guiUpdater.isCancelled());
-         this.userId=id;
+          this.userId=id;
 
      }
     public static String loginId;
@@ -72,12 +70,7 @@ class MainFrame extends JFrame implements ActionListener {
         private void updateData() {
             getContentPane().revalidate();
             getContentPane().repaint();
-            System.out.println("update 시작");
-            long st=System.currentTimeMillis();
             SensorValue[] sensorValueList = Callretrofit.get_sensor_value_resent_one(userId);
-            long ed=System.currentTimeMillis();
-            System.out.println("네트워크만 "+(ed-st));
-            long start = System.currentTimeMillis();
 
             getContentPane().revalidate();
             getContentPane().repaint();
@@ -107,7 +100,6 @@ class MainFrame extends JFrame implements ActionListener {
                 valuePanels.add(new ValuePanel(sensorIndex, value.getName(), value.getValue(), alarmDTO));
             }
             for(ValuePanel v:valuePanels){
-                System.out.println("패널에 담긴 값: "+v.sensorName.getText()+" " +v.value.getText());
                 sensorValuePanel.add(v);
             }
            //sensorValueScroll=new JScrollPane(sensorValuePanel);
@@ -117,9 +109,6 @@ class MainFrame extends JFrame implements ActionListener {
             sensorValueScroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
             factoryMainPanel.add(sensorValueScroll, BorderLayout.CENTER);
             getContentPane().add(factoryMainPanel,BorderLayout.CENTER);
-            long end = System.currentTimeMillis();
-            System.out.println("한주기 "+(end-start));
-            System.out.println("update 종료");
             getContentPane().revalidate();
             getContentPane().repaint();
         }
