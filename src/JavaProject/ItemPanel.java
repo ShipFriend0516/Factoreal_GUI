@@ -34,6 +34,9 @@ class ValuePanel extends JPanel{
     JLabel value;
     JButton alarmBtn;
     AlarmDTO alarmDTO=null;
+
+    ImageIcon ico = new ImageIcon("images/alarm.png");
+
     ValuePanel(long sensorIndex, String sensorName , String value, AlarmDTO alarmDTO){
         super();
         this.sensorIndex=sensorIndex;
@@ -41,7 +44,7 @@ class ValuePanel extends JPanel{
         this.sensorName =new JLabel(sensorName);
         this.value =new JLabel(value);
         this.alarmDTO=alarmDTO;
-        alarmBtn=new JButton();
+        alarmBtn=new JButton(new ImageIcon(ico.getImage().getScaledInstance(15,15,Image.SCALE_SMOOTH)));
         alarmBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
