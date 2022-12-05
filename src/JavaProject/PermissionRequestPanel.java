@@ -32,7 +32,7 @@ public class PermissionRequestPanel extends JPanel {
 
 
         this.setPreferredSize(new Dimension(300,40));
-        this.setBorder(BorderFactory.createEmptyBorder(3,3,3,18));
+        this.setBorder(BorderFactory.createEmptyBorder(3,3,3,22));
 
         setVisible(true);
         setSize(300,40);

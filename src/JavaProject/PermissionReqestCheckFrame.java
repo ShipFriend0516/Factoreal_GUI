@@ -28,24 +28,22 @@ public class PermissionReqestCheckFrame extends JFrame {
 
 
 
-        JPanel reqestListPanel = new JPanel(new FlowLayout());
+        JPanel requestListPanel = new JPanel(new FlowLayout()); // 리스트가 나오는 패널
+        requestListPanel.setPreferredSize(new Dimension(300,300));
+        JScrollPane requestListScroll = new JScrollPane(requestListPanel); //
+        requestListScroll.setPreferredSize(new Dimension(300, 200));
 
-        JScrollPane reqestListScroll = new JScrollPane(reqestListPanel); //
-        reqestListScroll.setPreferredSize(new Dimension(300, 300));
-
-        reqestListScroll.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-        reqestListScroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-
-
-        reqestListPanel.setSize(300, 1000);
+        requestListScroll.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        requestListScroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
 
 
-        reqestListPanel.add(new PermissionRequestCheckPanel("유저1"));
-        reqestListPanel.add(new PermissionRequestCheckPanel("dd"));
 
-        this.add(reqestListScroll,BorderLayout.CENTER);
-        this.revalidate();
-        this.repaint();
+
+
+        requestListPanel.add(new PermissionRequestCheckPanel("유저1"));
+        requestListPanel.add(new PermissionRequestCheckPanel("dd"));
+
+        this.add(requestListScroll,BorderLayout.CENTER);
 
 
 
@@ -54,7 +52,7 @@ public class PermissionReqestCheckFrame extends JFrame {
         setLocationRelativeTo(this);
         setSize(300,300);
         setVisible(true);
-        setTitle("열람 요청");
+        setTitle("열람 요청 확인");
     }
 
     public static void main(String[] args) {

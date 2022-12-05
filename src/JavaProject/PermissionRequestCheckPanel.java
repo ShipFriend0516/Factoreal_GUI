@@ -26,21 +26,17 @@ public class PermissionRequestCheckPanel extends JPanel {
         JButton accept = new JButton("수락");
         JButton deny = new JButton("거절");
         accept.setPreferredSize(new Dimension(40,30));
-        deny.setPreferredSize(new Dimension(60,30));
+        deny.setPreferredSize(new Dimension(40,30));
         accept.setBorder(BorderFactory.createLineBorder(Color.black));
         deny.setBorder(BorderFactory.createLineBorder(Color.black));
         btnPanel.add(accept);
         btnPanel.add(deny);
         this.add(btnPanel,BorderLayout.EAST);
 
-        accept.repaint();
-        accept.revalidate();
-        deny.repaint();
-        deny.revalidate();
 
 
         this.setPreferredSize(new Dimension(300,40));
-        this.setBorder(BorderFactory.createEmptyBorder(3,3,3,18));
+        this.setBorder(BorderFactory.createEmptyBorder(3,3,3,22));
 
         setVisible(true);
         setSize(300,40);
