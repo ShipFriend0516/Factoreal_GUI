@@ -39,8 +39,8 @@ public class AlarmFrame extends JFrame {
         minText.setPreferredSize(new Dimension(100,30));
         maxText.setPreferredSize(new Dimension(100,30));
 
-        confirm=new JButton();
-        cancel=new JButton();
+        confirm=new JButton("확인");
+        cancel=new JButton("취소");
         confirm.setPreferredSize(new Dimension(100,30));
         cancel.setPreferredSize(new Dimension(100,30));
         inputPanel.add(minLabel);

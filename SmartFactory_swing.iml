@@ -14,5 +14,6 @@
     <orderEntry type="library" name="retrofit-2.6.2" level="project" />
     <orderEntry type="library" name="okio-1.15.0" level="project" />
     <orderEntry type="library" name="gson-2.8.5" level="project" />
+    <orderEntry type="library" name="okhttp-3.12.01" level="project" />
   </component>
 </module>

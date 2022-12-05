@@ -10,21 +10,19 @@ import java.util.List;
 import java.util.concurrent.*;
 
 public class GetMyrelation extends Thread {
-    public static GetMyrelation holder;
     private ArrayList<userItem> moveContextUsers;
     private ArrayList<userItem> cancelContextUsers;
     private ArrayList<userItem> removeContextUsers;
     private ArrayList<userItem> requestContextUsers;
     String userId;
     public GetMyrelation(String userId){
-        this.holder=this;
         this.userId=userId;
     }
     @Override
     public void run() {
         List<FollowerShipDTO> followList = Callretrofit.get_follow(userId);
         List<FollowerShipDTO> followerList = Callretrofit.get_follower(userId);
-
+        System.out.println("GetMyrelation.run");
         List<FollowerShipDTO> rawFollowTrueList = new ArrayList<>();//무브
         List<FollowerShipDTO> rawFollowFalseList = new ArrayList<>();//취소
         List<FollowerShipDTO> rawFollowerTrueList = new ArrayList<>();//삭제
@@ -44,7 +42,7 @@ public class GetMyrelation extends Thread {
                 System.out.println("GetMyrelation.run:: f.isEnabled so ->" + f.getIndex() + " " + f.getFollowerUserIndex() + " follows -> " + f.getFollowUserIndex());
             } else {
                 rawFollowerFalseList.add(f);
-
+                System.out.println("GetMyrelation.run:: reequet->" + f.getIndex() + " " + f.getFollowerUserIndex() + " follows -> " + f.getFollowUserIndex());
             }
         }
         this.moveContextUsers = initData(rawFollowTrueList, Context.move);
